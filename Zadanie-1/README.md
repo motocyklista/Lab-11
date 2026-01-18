@@ -89,24 +89,16 @@ Podaj numer konta: 94
 
 ## Działanie programu
 
-Program prosi o podanie numeru polecenia (0-4).
+1. Program prosi o podanie numeru polecenia (0-4)..
+2. W zależności od polecenia:
 
-W zależności od wybranego polecenia:
-
-1 – wczytuje numer konta i kwotę, dokonuje wpłaty.
-
-2 – wczytuje numer konta i kwotę, dokonuje wypłaty jeśli środki wystarczą.
-
-3 – wczytuje numer konta i wyświetla saldo.
-
-4 – wczytuje numer konta i wyświetla historię transakcji.
-
-Program sprawdza poprawność numeru konta oraz kwoty.
-
-Po każdej operacji wypisuje komunikat o wyniku.
-
-Pętla powtarza się do momentu wybrania polecenia 0, które kończy program i zapisuje dane do pliku bank_db.txt.
-
+   * `1` – wczytuje numer konta i kwotę, dokonuje wpłaty.
+   * `2` – wczytuje numer konta i kwotę, dokonuje wypłaty jeśli środki wystarczą.
+   * `3` – wczytuje numer konta i wyświetla saldo.
+   * `4` - wczytuje numer konta i wyświetla historię transakcji.
+3. Program sprawdza poprawność numeru konta oraz kwoty.
+4. Po każdej operacji wypisuje komunikat o wyniku.
+5. Pętla powtarza się do momentu wybrania polecenia 0, które kończy program i zapisuje dane do pliku bank_db.txt.
 ---
 
 ## 👤 Autor
