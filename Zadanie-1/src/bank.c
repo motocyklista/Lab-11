@@ -184,44 +184,49 @@ int load_accounts(BankAccount db[], int size) {
     int count = 0;
     if (!f) {
         printf("Brak pliku danych. Inicjalizacja kont 'na sztywno'.\n");
-        db[0].id = 0; strcpy(db[0].owner, "Jan Kowalski"); db[0].balance = 350; db[0].history_count = 2;
+        db[0].id = 0; strcpy(db[0].owner, "Jan Kowalski"); db[0].history_count = 2;
         db[0].history[0] = -50; db[0].history[1] = 100;
-        db[1].id = 1; strcpy(db[1].owner, "Anna Nowak"); db[1].balance = 500; db[1].history_count = 0;
+        db[0].balance = db[0].history[0] + db[0].history[1];
+
+        db[1].id = 1; strcpy(db[1].owner, "Anna Nowak"); db[1].history_count = 0;
+        db[1].balance = 0;
+
         return 2;
     }
 
     char line[512];
     while (count < size && fgets(line, sizeof(line), f)) {
         BankAccount *acc = &db[count];
+        int hist_count = 0;
         acc->history_count = 0;
 
-        char *token = strtok(line, "|");
-        if (!token) continue;
-        acc->id = atoi(token);
+        // Czytamy całą linię scanf-em
+        char owner[OWNER_NAME_LEN];
+        double h[MAX_HISTORY];
+        int read_count = 0;
 
-        token = strtok(NULL, "|");
-        if (!token) continue;
-        strncpy(acc->owner, token, OWNER_NAME_LEN);
+        // Próbujemy wczytać: id|owner|balance|hist_count
+        if (sscanf(line, "%d|%49[^|]|%*lf|%d%n", &acc->id, owner, &hist_count, &read_count) < 3)
+            continue;
+
+        strncpy(acc->owner, owner, OWNER_NAME_LEN-1);
         acc->owner[OWNER_NAME_LEN-1] = '\0';
 
-        token = strtok(NULL, "|");
-        if (!token) continue;
-        acc->balance = atof(token);
-
-        token = strtok(NULL, "|");
-        if (!token) continue;
-        acc->history_count = atoi(token);
-
-        token = strtok(NULL, "|"); // reszta = historia
-        if (token) {
-            char *hist_ptr = token;
-            for (int i = 0; i < acc->history_count; i++) {
-                if (!hist_ptr) break;
-                acc->history[i] = atof(hist_ptr);
-                hist_ptr = strchr(hist_ptr, ' ');
-                if (hist_ptr) hist_ptr++;
-            }
+        // Wskaźnik do początku historii
+        char *p = line + read_count;
+        double val;
+        int n;
+        while (read_count < 512 && acc->history_count < MAX_HISTORY) {
+            if (sscanf(p, "%lf%n", &val, &n) != 1) break;
+            acc->history[acc->history_count++] = val;
+            p += n;
+            read_count += n;
         }
+
+        // Obliczamy saldo
+        acc->balance = 0;
+        for (int i = 0; i < acc->history_count; i++)
+            acc->balance += acc->history[i];
 
         count++;
     }
