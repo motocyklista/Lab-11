@@ -1,5 +1,5 @@
 # Program: "System bankowy 2.0 - Refaktoryzacja i Agregacja"
-Program w języku C, który symuluje podstawowe operacje bankowe na 100 kontach. Użytkownik może wpłacać środki (DEPOSIT), wypłacać środki (WITHDRAW), sprawdzać saldo (SHOW) oraz przeglądać historię transakcji (HISTORY) dla wybranego konta. Program powstał jako modyfikacja zadania z laboratorium 6, z funkcjami wyciągniętymi poza `main`.
+Program w języku C, który symuluje podstawowe operacje bankowe na 100 kontach. Użytkownik może wpłacać środki (DEPOSIT), wypłacać środki (WITHDRAW), sprawdzać saldo (SHOW) oraz przeglądać historię transakcji (HISTORY) dla wybranego konta. Program powstał jako modyfikacja zadania z laboratorium 8, z funkcjami wyciągniętymi poza `main`.
 
 
 ---
