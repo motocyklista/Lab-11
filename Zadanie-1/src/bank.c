@@ -75,7 +75,7 @@ int main(void) {
             acc->id = id;
             acc->balance = 0;
             acc->history_count = 0;
-            printf("Tworze nowe konto o ID %d\n", id);
+            printf("Tworze nowe konto o ID: %d\n", id);
             printf("Podaj imie i nazwisko wlasciciela: ");
             scanf(" %49[^\n]", acc->owner);
             account_count++;
